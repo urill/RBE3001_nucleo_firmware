@@ -4,3 +4,7 @@
 .gcc-flags.json
 /src/*.gch
 /firmware.bin
+.vscode/c_cpp_properties.json
+venv/
+.vscode/
+mbed-os/

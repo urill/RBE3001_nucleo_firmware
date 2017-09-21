@@ -9,6 +9,10 @@ HIDSimplePacket coms;
 float calibrations[3] ={1878.750000 , 2103.250000 , 988.000000};// team 3
 //float  calibrations[3] = {0,0,0};
 
+AnalogIn loadCell1(LOAD_1);
+AnalogIn loadCell2(LOAD_2);
+AnalogIn loadCell3(LOAD_3);
+
 void runPid() {
 	// update all positions fast and together
 	for (int i = 0; i < numberOfPid; i++)
@@ -82,22 +86,23 @@ int main() {
 	while (1) {
 		coms.server();
 		if (print->RunEvery(pid[0]->getMs()) > 0) {
+      printf("\n\rLoad Cells:\t%f\t%f\t%f", loadCell1.read(), loadCell2.read(), loadCell3.read());
 //			printf("\r\nEncoder Value = %f , %f , %f", pid[0]->GetPIDPosition(),
 //					pid[1]->GetPIDPosition(), pid[2]->GetPIDPosition());
-			if (pid[0]->state.vel.enabled) {
-				printf("\n\r\n\r\t Velocity set=   %f ticks/seCond",
-						pid[0]->state.vel.unitsPerSeCond);
-				printf("\n\r\t vel.lastPosition=      %f ticks",
-						pid[0]->state.vel.lastPosition);
-				printf("\n\r\t current getVelocity()=         %f ticks/seCond ",
-						pid[0]->getVelocity());
-				printf("\n\r\t Velocity currentOutputVel=    %f",
-						pid[0]->state.vel.currentOutputVel);
-				printf("\n\r\t state.Output=    %f",
-						pid[0]->state.Output);
-				printf("\n\r\t state.OutputSet=    %f",
-						pid[0]->state.OutputSet);
-			}
+			// if (pid[0]->state.vel.enabled) {
+			// 	printf("\n\r\n\r\t Velocity set=   %f ticks/seCond",
+			// 			pid[0]->state.vel.unitsPerSeCond);
+			// 	printf("\n\r\t vel.lastPosition=      %f ticks",
+			// 			pid[0]->state.vel.lastPosition);
+			// 	printf("\n\r\t current getVelocity()=         %f ticks/seCond ",
+			// 			pid[0]->getVelocity());
+			// 	printf("\n\r\t Velocity currentOutputVel=    %f",
+			// 			pid[0]->state.vel.currentOutputVel);
+			// 	printf("\n\r\t state.Output=    %f",
+			// 			pid[0]->state.Output);
+			// 	printf("\n\r\t state.OutputSet=    %f",
+			// 			pid[0]->state.OutputSet);
+			// }
 		}
 
 	}
