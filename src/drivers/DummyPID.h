@@ -4,10 +4,10 @@
 #include "MyPid.h"
 #include "RunEvery.h"
 
-class DummyPID : public PIDBowler{
+class DummyPID : public PIDimp{
 public:
   DummyPID();
-
+  DummyPID(Servo * myServo, AS5050 * myEncoder){}
   float getPosition();
   void setOutputLocal( float);
   float resetPosition( float);
