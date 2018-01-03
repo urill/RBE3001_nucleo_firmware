@@ -10,6 +10,10 @@ float  calibrations[3] = {0,0,0};
 //float  calibrations[3] = {114,784,-10};
 Servo * gripper;
 
+AnalogIn loadCell1(LOAD_1);
+AnalogIn loadCell2(LOAD_2);
+AnalogIn loadCell3(LOAD_3);
+
 void runPid(){
   // update all positions fast and together
   for (int i=0;i<numberOfPid;i++)
@@ -85,14 +89,17 @@ int main() {
    coms.attach(new DummyServer ());
    coms.attach(new PidServer (pid, numberOfPid ));
    printf("\r\n\r\n Starting Core \r\n\r\n");
-   RunEveryObject* print = new RunEveryObject(0,500);
+   RunEveryObject* print = new RunEveryObject(0,100);
     while(1) {
         coms.server();
         if(print->RunEvery(pid[0]->getMs())>0){
-          printf("\r\nEncoder Value = %f , %f , %f",
+          printf("\r\nEnc = %f , %f , %f\tLoad = %f , %f , %f",
           pid[0]->GetPIDPosition(),
           pid[1]->GetPIDPosition(),
-          pid[2]->GetPIDPosition());
+          pid[2]->GetPIDPosition(),
+          loadCell1.read(),
+          loadCell2.read(),
+          loadCell3.read());
         }
 
 
